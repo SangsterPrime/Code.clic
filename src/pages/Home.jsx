@@ -3,7 +3,11 @@ import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { Link } from 'react-router-dom'
+import useResponsiveNav from '../hooks/useResponsiveNav.js'
+import MainNav from '../components/organisms/MainNav.jsx'
+import CtaLink from '../components/atoms/CtaLink.jsx'
+import Footer from '../components/organisms/Footer.jsx'
+import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
 const features = [
   {
@@ -101,23 +105,12 @@ const stats = [
 
 function HomePage() {
   const [particlesReady, setParticlesReady] = useState(false)
-  const [isNavOpen, setIsNavOpen] = useState(false)
+  const { isNavOpen, toggleNav, closeNav } = useResponsiveNav()
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       await loadSlim(engine)
     }).then(() => setParticlesReady(true))
-  }, [])
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 900) {
-        setIsNavOpen(false)
-      }
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const particleOptions = useMemo(
@@ -192,48 +185,14 @@ function HomePage() {
         <div className="hero-particles" aria-hidden="true">
           {particlesReady && <Particles id="codeclic-particles" options={particleOptions} />}
         </div>
-        <nav className="hero-navbar">
-          <Link className="brand" to="/" onClick={() => setIsNavOpen(false)}>
-            Code.clic
-          </Link>
-          <button
-            type="button"
-            className="nav-toggle"
-            aria-label={isNavOpen ? 'Cerrar navegación' : 'Abrir navegación'}
-            aria-expanded={isNavOpen}
-            onClick={() => setIsNavOpen((prev) => !prev)}
-          >
-            <span className="visually-hidden">Menú</span>
-            <span aria-hidden="true" className="nav-toggle-icon">
-              <span />
-              <span />
-              <span />
-            </span>
-          </button>
-          <div className={`nav-links ${isNavOpen ? 'nav-open' : ''}`}>
-            <a href="#servicios" onClick={() => setIsNavOpen(false)}>
-              Servicios
-            </a>
-            <a href="#proceso" onClick={() => setIsNavOpen(false)}>
-              Proceso
-            </a>
-            <a href="#testimonios" onClick={() => setIsNavOpen(false)}>
-              Testimonios
-            </a>
-            <a href="#contacto" onClick={() => setIsNavOpen(false)}>
-              Contacto
-            </a>
-            <Link to="/sobre-nosotros" onClick={() => setIsNavOpen(false)}>
-              Sobre nosotros
-            </Link>
-            <Link to="/proyectos" onClick={() => setIsNavOpen(false)}>
-              Proyectos
-            </Link>
-          </div>
-          <a className="nav-cta" href="#contacto" onClick={() => setIsNavOpen(false)}>
-            Agenda una llamada
-          </a>
-        </nav>
+        <MainNav
+          className="hero-navbar"
+          links={navigationConfig.home}
+          isNavOpen={isNavOpen}
+          toggleNav={toggleNav}
+          closeNav={closeNav}
+          cta={{ label: 'Agenda una llamada', href: '#contacto' }}
+        />
 
         <div className="hero-content">
           <p className="hero-eyebrow">Diseño y desarrollo web estratégico</p>
@@ -244,15 +203,15 @@ function HomePage() {
             propósito.
           </p>
           <div className="hero-cta-group">
-            <a className="cta-primary" href="#contacto">
+            <CtaLink variant="primary" href="#contacto">
               Solicitar propuesta
-            </a>
-            <Link className="cta-secondary" to="/proyectos">
+            </CtaLink>
+            <CtaLink variant="secondary" to="/proyectos">
               Ver proyectos
-            </Link>
-            <Link className="cta-secondary" to="/sobre-nosotros">
+            </CtaLink>
+            <CtaLink variant="secondary" to="/sobre-nosotros">
               Conoce al equipo
-            </Link>
+            </CtaLink>
           </div>
         </div>
 
@@ -384,38 +343,10 @@ function HomePage() {
         </section>
       </main>
 
-      <footer className="footer">
-        <span>© {new Date().getFullYear()} Code.clic. Todos los derechos reservados.</span>
-        <div className="footer-links">
-          <div className="footer-nav">
-            <Link to="/">Inicio</Link>
-            <a href="#servicios">Servicios</a>
-            <a href="#contacto">Contacto</a>
-            <Link to="/sobre-nosotros">Sobre nosotros</Link>
-            <Link to="/proyectos">Proyectos</Link>
-          </div>
-          <div className="footer-socials">
-            <a
-              className="footer-social"
-              href="https://wa.me/5215512345678"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="WhatsApp Code.clic"
-            >
-              <FontAwesomeIcon className="footer-icon icon-whatsapp" icon={faWhatsapp} />
-            </a>
-            <a
-              className="footer-social"
-              href="https://www.instagram.com/code.clic"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram Code.clic"
-            >
-              <FontAwesomeIcon className="footer-icon icon-instagram" icon={faInstagram} />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer
+        {...footerConfig.primary}
+        copyright={`© ${new Date().getFullYear()} Code.clic. Todos los derechos reservados.`}
+      />
     </div>
   )
 }
