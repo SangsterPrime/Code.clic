@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import useResponsiveNav from '../hooks/useResponsiveNav.js'
+import useActiveSection from '../hooks/useActiveSection.js'
 import MainNav from '../components/organisms/MainNav.jsx'
+import ScrollToTopButton from '../components/atoms/ScrollToTopButton.jsx'
 import Footer from '../components/organisms/Footer.jsx'
 import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
@@ -45,6 +47,8 @@ const capabilities = [
 function AboutPage() {
   const [particlesReady, setParticlesReady] = useState(false)
   const { isNavOpen, toggleNav, closeNav } = useResponsiveNav()
+  const aboutSections = useMemo(() => ['principios', 'equipo', 'contacto'], [])
+  const activeSectionId = useActiveSection(aboutSections)
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -130,6 +134,7 @@ function AboutPage() {
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
           closeNav={closeNav}
+          activeSectionId={activeSectionId}
           cta={{ label: 'Ver proyectos', to: '/proyectos' }}
         />
 
@@ -224,6 +229,7 @@ function AboutPage() {
         {...footerConfig.about}
         copyright={`© ${new Date().getFullYear()} Code.clic. Historias digitales que convierten.`}
       />
+      <ScrollToTopButton />
     </div>
   )
 }

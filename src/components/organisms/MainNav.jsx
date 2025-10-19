@@ -12,6 +12,7 @@ function MainNav({
   isNavOpen,
   toggleNav,
   closeNav,
+  activeSectionId,
 }) {
   const { label: ctaLabel, variant: ctaVariant, onClick: ctaOnClick, ...ctaRest } = cta ?? {}
 
@@ -19,7 +20,7 @@ function MainNav({
     <nav className={className}>
       <Brand to={brandTo} label={brandLabel} onClick={closeNav} />
       <NavToggle isOpen={isNavOpen} onToggle={toggleNav} />
-      <NavLinks links={links} isNavOpen={isNavOpen} onNavigate={closeNav} />
+      <NavLinks links={links} isNavOpen={isNavOpen} onNavigate={closeNav} activeId={activeSectionId} />
       {cta ? (
         <CtaLink
           variant={ctaVariant ?? 'nav'}

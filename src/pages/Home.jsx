@@ -4,8 +4,10 @@ import { loadSlim } from '@tsparticles/slim'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import useResponsiveNav from '../hooks/useResponsiveNav.js'
+import useActiveSection from '../hooks/useActiveSection.js'
 import MainNav from '../components/organisms/MainNav.jsx'
 import CtaLink from '../components/atoms/CtaLink.jsx'
+import ScrollToTopButton from '../components/atoms/ScrollToTopButton.jsx'
 import Footer from '../components/organisms/Footer.jsx'
 import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
@@ -106,6 +108,8 @@ const stats = [
 function HomePage() {
   const [particlesReady, setParticlesReady] = useState(false)
   const { isNavOpen, toggleNav, closeNav } = useResponsiveNav()
+  const homeSections = useMemo(() => ['inicio', 'servicios', 'proceso', 'testimonios', 'contacto'], [])
+  const activeSectionId = useActiveSection(homeSections)
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -191,6 +195,7 @@ function HomePage() {
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
           closeNav={closeNav}
+          activeSectionId={activeSectionId}
           cta={{ label: 'Agenda una llamada', href: '#contacto' }}
         />
 
@@ -347,6 +352,7 @@ function HomePage() {
         {...footerConfig.primary}
         copyright={`© ${new Date().getFullYear()} Code.clic. Todos los derechos reservados.`}
       />
+      <ScrollToTopButton />
     </div>
   )
 }

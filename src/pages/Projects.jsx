@@ -4,8 +4,10 @@ import { loadSlim } from '@tsparticles/slim'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import useResponsiveNav from '../hooks/useResponsiveNav.js'
+import useActiveSection from '../hooks/useActiveSection.js'
 import MainNav from '../components/organisms/MainNav.jsx'
 import CtaLink from '../components/atoms/CtaLink.jsx'
+import ScrollToTopButton from '../components/atoms/ScrollToTopButton.jsx'
 import Footer from '../components/organisms/Footer.jsx'
 import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
@@ -50,6 +52,8 @@ const inProgressProjects = [
 function ProjectsPage() {
   const [particlesReady, setParticlesReady] = useState(false)
   const { isNavOpen, toggleNav, closeNav } = useResponsiveNav()
+  const projectSections = useMemo(() => ['proyectos-realizados', 'ofertas', 'colaborar'], [])
+  const activeSectionId = useActiveSection(projectSections)
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -135,6 +139,7 @@ function ProjectsPage() {
           isNavOpen={isNavOpen}
           toggleNav={toggleNav}
           closeNav={closeNav}
+          activeSectionId={activeSectionId}
           cta={{
             label: 'Consulta un proyecto',
             href: 'https://wa.me/5215512345678',
@@ -254,6 +259,7 @@ function ProjectsPage() {
         {...footerConfig.secondary}
         copyright={`© ${new Date().getFullYear()} Code.clic. Historias que convierten.`}
       />
+      <ScrollToTopButton />
     </div>
   )
 }
