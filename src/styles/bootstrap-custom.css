@@ -1,0 +1,89 @@
+:root {
+	--bs-body-font-family: var(--font-family-sans);
+	--bs-body-line-height: var(--line-height-base);
+	--bs-body-color: var(--color-text);
+	--bs-body-bg: transparent;
+	--bs-link-color: var(--color-primary);
+	--bs-link-hover-color: var(--color-primary-light);
+	--bs-border-radius: var(--radius-sm);
+	--bs-border-radius-lg: var(--radius-md);
+	--bs-border-radius-pill: var(--radius-pill);
+	--bs-focus-ring-width: 0.15rem;
+	--bs-focus-ring-color: rgba(34, 197, 94, 0.35);
+}
+
+.btn {
+	font-weight: var(--font-weight-semibold);
+	border-radius: var(--radius-pill);
+	transition: transform var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+}
+
+.btn:focus-visible {
+	box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.35);
+}
+
+.btn-primary {
+	background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+	border-color: rgba(22, 101, 52, 0.65);
+	box-shadow: 0 12px 24px rgba(22, 101, 52, 0.25);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+	background: linear-gradient(135deg, #0f5132 0%, var(--color-primary) 100%);
+	border-color: rgba(22, 101, 52, 0.8);
+	transform: translateY(-2px);
+	box-shadow: 0 16px 30px rgba(22, 101, 52, 0.3);
+}
+
+.btn-outline-success {
+	color: var(--color-primary);
+	border-color: rgba(22, 101, 52, 0.35);
+	background-color: rgba(34, 197, 94, 0.08);
+}
+
+.btn-outline-success:hover,
+.btn-outline-success:focus-visible {
+	color: var(--color-primary-dark);
+	background-color: rgba(34, 197, 94, 0.18);
+	border-color: rgba(22, 101, 52, 0.6);
+	transform: translateY(-2px);
+}
+
+.badge {
+	font-weight: var(--font-weight-semibold);
+	border-radius: var(--radius-pill);
+	padding: 0.4rem 0.75rem;
+}
+
+.form-control,
+.form-select {
+	border-radius: var(--radius-md);
+	border-color: rgba(5, 46, 22, 0.16);
+	padding-block: 0.7rem;
+	box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+	border-color: rgba(22, 101, 52, 0.55);
+	box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
+}
+
+.card {
+	border-radius: var(--radius-lg);
+	border: 1px solid rgba(5, 46, 22, 0.08);
+	box-shadow: var(--shadow-soft);
+}
+
+.card-header,
+.card-footer {
+	background-color: rgba(34, 197, 94, 0.08);
+	border-color: rgba(5, 46, 22, 0.08);
+}
+
+.alert-success {
+	color: var(--color-primary-dark);
+	background-color: rgba(34, 197, 94, 0.12);
+	border-color: rgba(34, 197, 94, 0.32);
+}
