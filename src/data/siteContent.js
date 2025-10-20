@@ -2,8 +2,10 @@ import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 export const navigationConfig = {
   home: [
-    { label: 'Servicios', href: '#servicios' },
+    { label: 'Soluciones', href: '#soluciones' },
+  { label: 'Planes', href: '#planes' },
     { label: 'Proceso', href: '#proceso' },
+    { label: 'Portafolio', href: '#portafolio' },
     { label: 'Testimonios', href: '#testimonios' },
     { label: 'Contacto', href: '#contacto' },
     { label: 'Sobre nosotros', to: '/sobre-nosotros' },
@@ -29,7 +31,8 @@ export const footerConfig = {
     variant: 'primary',
     links: [
       { label: 'Inicio', to: '/' },
-      { label: 'Servicios', href: '#servicios' },
+      { label: 'Soluciones', href: '#soluciones' },
+  { label: 'Planes', href: '#planes' },
       { label: 'Contacto', href: '#contacto' },
       { label: 'Sobre nosotros', to: '/sobre-nosotros' },
       { label: 'Proyectos', to: '/proyectos' },

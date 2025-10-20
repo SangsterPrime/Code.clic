@@ -13,22 +13,54 @@ import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
 const completedProjects = [
   {
-    name: 'VitalCO Distribución',
+    name: 'Distribuidora Oeste',
     description:
-      'Sitio corporativo para distribuidora de agua, carbón y huevos con catálogo editable y soporte para pedidos mayoristas.',
-    impact: 'Centralización de solicitudes B2B y mejora en tiempos de respuesta comerciales.',
-    tags: ['Catálogo dinámico', 'Segmentación B2B', 'Optimización SEO local'],
-    tech: ['React', 'Bootstrap 5', 'Firebase'],
-    repo: 'https://github.com/SangsterPrime/VitalCO',
+      'Catálogo estático con carrito y checkout inteligente por WhatsApp para una distribuidora de alimentos sin backend propio.',
+    impact: 'Permite procesar pedidos B2B y retail con respuestas automáticas según dispositivo y horario de atención.',
+    tags: ['Carrito sin backend', 'Checkout WhatsApp', 'Promociones por categoría'],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    image: {
+      src: 'https://portafolio-omega-tawny-87.vercel.app/assets/vitalco-DqXvKxsR.webp',
+      alt: 'Vista previa del catálogo Distribuidora Oeste',
+    },
+    links: [
+      { label: 'Caso detallado', href: 'https://portafolio-omega-tawny-87.vercel.app/projects/p1' },
+      { label: 'Sitio en vivo', href: 'https://vitalco.cl/' },
+      { label: 'Repositorio', href: 'https://github.com/SangsterPrime/Distribuidora-Oeste' },
+    ],
   },
   {
-    name: 'AltarDeOracion.cl',
+    name: "Don't Sleep",
     description:
-      'Plataforma para un centro evangelístico con transmisión radial en vivo, agenda de eventos y coordinación de voluntariado.',
-    impact: 'Mayor alcance comunitario y organización eficiente de actividades solidarias.',
-    tags: ['Streaming en vivo', 'Gestión de voluntariado', 'Eventos comunitarios'],
-    tech: ['HTML5', 'CSS3', 'Bootstrap 5'],
-    repo: 'https://github.com/SangsterPrime/Ministerio-Evang-lico-Altar-Oraci-n',
+      'Script de PowerShell que mantiene activo Windows utilizando la API Win32 SetThreadExecutionState para evitar suspensión y apagado de pantalla.',
+    impact: 'Ideal para operadores y técnicos que necesitan ejecutar procesos largos sin modificar la política de energía del equipo.',
+    tags: ['Automatización PowerShell', 'Prevención suspensión', 'Uso API Win32'],
+    tech: ['PowerShell'],
+    image: {
+      src: 'https://portafolio-omega-tawny-87.vercel.app/assets/dont-sleep-BmOxRuRB.webp',
+      alt: "Ilustración del script Don't Sleep ejecutándose en Windows",
+    },
+    links: [
+      { label: 'Caso detallado', href: 'https://portafolio-omega-tawny-87.vercel.app/projects/dont-sleep' },
+      { label: 'Repositorio', href: 'https://github.com/SangsterPrime/Don-t-Sleep' },
+    ],
+  },
+  {
+    name: 'Ministerio Evangélico Altar Oración',
+    description:
+      'Sitio informativo con medios administrados por JSON, botones de contacto con mensajes prellenados y agenda de actividades solidarias.',
+    impact: 'Simplifica la coordinación de voluntariado y facilita las donaciones con flujos directos por WhatsApp.',
+    tags: ['Contenido dinámico', 'Automatización WhatsApp', 'Recursos comunitarios'],
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    image: {
+      src: 'https://portafolio-omega-tawny-87.vercel.app/assets/react-CHdo91hT.svg',
+      alt: 'Captura del sitio Ministerio Evangélico Altar Oración',
+    },
+    links: [
+      { label: 'Caso detallado', href: 'https://portafolio-omega-tawny-87.vercel.app/projects/altar-oracion' },
+      { label: 'Sitio en vivo', href: 'https://altardeoracion.cl/' },
+      { label: 'Repositorio', href: 'https://github.com/SangsterPrime/Ministerio-Evang-lico-Altar-Oraci-n' },
+    ],
   },
 ]
 
@@ -181,35 +213,65 @@ function ProjectsPage() {
           <div className="project-grid">
             {completedProjects.map((project) => (
               <article className="project-card" key={project.name}>
-                <div>
+                {project.image ? (
+                  <figure className="project-media">
+                    <img src={project.image.src} alt={project.image.alt} loading="lazy" />
+                  </figure>
+                ) : null}
+                <div className="project-body">
                   <h3>{project.name}</h3>
                   <p>{project.description}</p>
-                  <p className="project-impact">{project.impact}</p>
+                  {project.impact ? <p className="project-impact">{project.impact}</p> : null}
                 </div>
-                {project.repo && (
-                  <a className="project-link" href={project.repo} target="_blank" rel="noreferrer">
-                    Ver repositorio
-                  </a>
+                {(project.tags?.length || project.tech?.length) && (
+                  <div className="project-meta">
+                    {project.tags?.length ? (
+                      <div className="project-tags">
+                        {project.tags.map((tag) => (
+                          <span className="project-tag" key={tag}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+                    {project.tech?.length ? (
+                      <div className="project-tech">
+                        <span>Stack:</span>
+                        <ul>
+                          {project.tech.map((tech) => (
+                            <li key={tech}>{tech}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ) : null}
+                  </div>
                 )}
-                <div className="project-meta">
-                  <div className="project-tags">
-                    {project.tags.map((tag) => (
-                      <span className="project-tag" key={tag}>
-                        {tag}
-                      </span>
+                {project.links?.length ? (
+                  <div className="project-links">
+                    {project.links.map((link) => (
+                      <a
+                        key={`${project.name}-${link.label}`}
+                        className="project-link"
+                        href={link.href}
+                        target={link.external === false ? undefined : '_blank'}
+                        rel={link.external === false ? undefined : 'noreferrer'}
+                      >
+                        {link.label}
+                      </a>
                     ))}
                   </div>
-                  <div className="project-tech">
-                    <span>Stack:</span>
-                    <ul>
-                      {project.tech.map((tech) => (
-                        <li key={tech}>{tech}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                ) : null}
               </article>
             ))}
+          </div>
+          <div className="project-external-cta">
+            <p>
+              ¿Quieres profundizar en más casos, prototipos y retos personales? Explora el portafolio extendido con
+              bitácoras, aprendizajes y proyectos experimentales.
+            </p>
+            <a className="project-link" href="https://portafolio-omega-tawny-87.vercel.app" target="_blank" rel="noreferrer">
+              Ver portafolio completo
+            </a>
           </div>
         </section>
 

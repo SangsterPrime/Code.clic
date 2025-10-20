@@ -3,6 +3,7 @@ import Particles, { initParticlesEngine } from '@tsparticles/react'
 import { loadSlim } from '@tsparticles/slim'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faCircleCheck, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 import useResponsiveNav from '../hooks/useResponsiveNav.js'
 import useActiveSection from '../hooks/useActiveSection.js'
 import MainNav from '../components/organisms/MainNav.jsx'
@@ -11,56 +12,98 @@ import ScrollToTopButton from '../components/atoms/ScrollToTopButton.jsx'
 import Footer from '../components/organisms/Footer.jsx'
 import { navigationConfig, footerConfig } from '../data/siteContent.js'
 
-const features = [
+const solutionTypes = [
   {
-    title: 'Diseños a medida',
-    description:
-      'Creamos experiencias digitales únicas que reflejan la esencia de tu marca y guían al usuario hacia la conversión.',
+    name: 'One Page enfocado',
+    summary: 'Una landing directa para validar tu propuesta y captar clientes de inmediato.',
+    highlights: ['Una sección estratégica de alto impacto', 'Copy persuasivo y llamado a la acción destacado', 'Integración con formularios o WhatsApp'],
   },
   {
-    title: 'Estrategia centrada en resultados',
-    description:
-      'Investigamos a tu competencia, definimos objetivos claros y estructuramos la navegación para maximizar el impacto.',
+    name: 'Sitio Web profesional',
+    summary: 'Estructura completa con navegación clara para negocios que necesitan escalar su presencia.',
+    highlights: ['Hasta 6 secciones personalizadas', 'Arquitectura de información pensada para convertir', 'Configuración de analítica y SEO base'],
   },
   {
-    title: 'Optimización integral',
-    description:
-      'Sitios veloces, adaptables y listos para posicionarse en Google desde el primer día.',
+    name: 'Ecommerce listo para vender',
+    summary: 'Tienda online administrable con pasarelas seguras y reportes automáticos.',
+    highlights: ['Catálogo con stock y variantes', 'Carrito, checkout y correos automatizados', 'Dashboard con métricas de ventas'],
   },
 ]
 
-const services = [
+const differentiators = [
   {
-    name: 'Landing Page Persuasiva',
-    price: 'Desde $269.000 CLP',
+    title: 'Diseño estratégico',
     description:
-      'Ideal para lanzamientos rápidos y campañas que necesitan captar leads con un mensaje claro y directo.',
-    deliverables: [
-      'Diseño personalizado de una sección de aterrizaje',
-      'Integración con formularios y seguimiento de conversiones',
-      'Lanzamiento optimizado para dispositivos móviles',
+      'Cada layout se apoya en investigación de usuarios y objetivos de negocio para transmitir confianza y acción inmediata.',
+  },
+  {
+    title: 'Implementación optimizada',
+    description:
+      'Performance, accesibilidad y SEO técnico listos desde el lanzamiento para que Google y tus clientes te encuentren.',
+  },
+  {
+    title: 'Soporte continuo',
+    description:
+      'Te acompañamos con capacitación, mejoras iterativas y un equipo disponible para ajustes o nuevas campañas.',
+  },
+]
+
+const planOptions = [
+  {
+    name: 'Plan Starter',
+    price: '$99.990 + IVA',
+    summary: 'Una sección de alto impacto para presentar tu marca o servicio y activar contactos rápidos.',
+    ctaLabel: 'Quiero este plan',
+    isFeatured: false,
+    features: [
+      { label: 'Una sección estratégica', included: true },
+      { label: 'Diseño responsive', included: true },
+      { label: 'Botón de WhatsApp', included: true },
+      { label: 'Formulario de contacto', included: true },
+      { label: 'Soporte asistido 30 días', included: true },
+      { label: 'Auto administrable', included: true },
+      { label: 'Galería de imágenes', included: false },
+      { label: 'Optimización SEO avanzada', included: false },
+      { label: 'Mapa de ubicación', included: false },
+      { label: 'Integración Pixel Ads', included: false },
     ],
   },
   {
-    name: 'Sitio Corporativo Profesional',
-    price: 'Desde $621.000 CLP',
-    description:
-      'La presencia digital completa para empresas que buscan confianza, posicionamiento y una imagen sólida.',
-    deliverables: [
-      'Hasta 6 páginas estratégicas (Inicio, Servicios, Nosotros, Blog, Contacto...)',
-      'Integración con chat en vivo, CRM o WhatsApp Business',
-      'Panel autogestionable y capacitación express',
+    name: 'Plan Standard',
+    price: '$159.990 + IVA',
+    summary: 'Cinco secciones pensadas para negocios en crecimiento con foco en posicionamiento digital.',
+    ctaLabel: 'Cotizar Plan Standard',
+    isFeatured: true,
+    features: [
+      { label: 'Hasta 5 secciones', included: true },
+      { label: 'Diseño responsive', included: true },
+      { label: 'Botón de WhatsApp', included: true },
+      { label: 'Formulario de contacto', included: true },
+      { label: 'Soporte asistido 60 días', included: true },
+      { label: 'Auto administrable', included: true },
+      { label: 'Galería de imágenes', included: true },
+      { label: 'Optimización SEO base', included: true },
+      { label: 'Mapa de ubicación', included: true },
+      { label: 'Integración Pixel Ads', included: false },
     ],
   },
   {
-    name: 'Ecommerce Optimizado',
-    price: 'Desde $891.000 CLP',
-    description:
-      'Lanza tu tienda en línea lista para vender con procesos seguros y experiencia de compra memorable.',
-    deliverables: [
-      'Catálogo administrable y pasarelas de pago seguras',
-      'Automatización de correos post compra',
-      'Reporting de ventas y desempeño en un solo panel',
+    name: 'Plan Premium',
+    price: '$209.990 + IVA',
+    summary: 'Diez secciones, automatizaciones y analítica completa para marcas que requieren escalar.',
+    ctaLabel: 'Elegir Plan Premium',
+    isFeatured: false,
+    features: [
+      { label: 'Hasta 10 secciones', included: true },
+      { label: 'Diseño responsive', included: true },
+      { label: 'Botón de WhatsApp', included: true },
+      { label: 'Formularios avanzados', included: true },
+      { label: 'Soporte asistido 90 días', included: true },
+      { label: 'Auto administrable + capacitación', included: true },
+      { label: 'Galería de imágenes', included: true },
+      { label: 'Optimización SEO avanzada', included: true },
+      { label: 'Mapa de ubicación', included: true },
+      { label: 'Integración Pixel Ads', included: true },
     ],
   },
 ]
@@ -108,7 +151,10 @@ const stats = [
 function HomePage() {
   const [particlesReady, setParticlesReady] = useState(false)
   const { isNavOpen, toggleNav, closeNav } = useResponsiveNav()
-  const homeSections = useMemo(() => ['inicio', 'servicios', 'proceso', 'testimonios', 'contacto'], [])
+  const homeSections = useMemo(
+    () => ['inicio', 'soluciones', 'diferenciales', 'planes', 'proceso', 'portafolio', 'testimonios', 'contacto'],
+    [],
+  )
   const activeSectionId = useActiveSection(homeSections)
 
   useEffect(() => {
@@ -231,14 +277,35 @@ function HomePage() {
       </header>
 
       <main>
+        <section className="section" id="soluciones">
+          <h2 className="section-title">¿Qué tipo de solución necesitas?</h2>
+          <p className="section-subtitle">
+            Identificamos el formato ideal para tu negocio, ya sea una landing enfocada, un sitio corporativo completo o
+            un ecommerce preparado para vender sin fricción.
+          </p>
+          <div className="solution-grid">
+            {solutionTypes.map((solution) => (
+              <article className="solution-card" key={solution.name}>
+                <h3>{solution.name}</h3>
+                <p>{solution.summary}</p>
+                <ul className="solution-points">
+                  {solution.highlights.map((highlight) => (
+                    <li key={highlight}>{highlight}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="section" id="diferenciales">
-          <h2 className="section-title">¿Por qué elegir Code.clic?</h2>
+          <h2 className="section-title">Páginas web profesionales para crecer</h2>
           <p className="section-subtitle">
             Diseñamos páginas web enfocadas en el crecimiento sostenido de tu negocio, con procesos transparentes y un
             equipo que entiende tus objetivos.
           </p>
           <div className="feature-grid">
-            {features.map((feature, index) => (
+            {differentiators.map((feature, index) => (
               <article className="feature-card" key={feature.title}>
                 <span className="feature-index">0{index + 1}</span>
                 <h3>{feature.title}</h3>
@@ -248,25 +315,39 @@ function HomePage() {
           </div>
         </section>
 
-  <section className="section" id="servicios">
-          <h2 className="section-title">Servicios Code.clic</h2>
+        <section className="section" id="planes">
+          <h2 className="section-title">Elige el plan que mejor se adapta a tu negocio</h2>
           <p className="section-subtitle">
-            Escoge el plan que mejor se adapte a tu etapa de crecimiento. Cada proyecto incluye investigación, diseño y
-            acompañamiento posterior al lanzamiento.
+            Compara nuestros planes y escoge el nivel de acompañamiento que necesitas. Todos incluyen diseño responsive,
+            configuración inicial de analítica y soporte dedicado.
           </p>
-          <div className="service-grid">
-            {services.map((service) => (
-              <article className="service-card" key={service.name}>
+          <div className="plan-grid">
+            {planOptions.map((plan) => (
+              <article className={`plan-card${plan.isFeatured ? ' plan-card-featured' : ''}`} key={plan.name}>
+                {plan.isFeatured ? <span className="plan-card-badge">Recomendado</span> : null}
                 <header>
-                  <h3>{service.name}</h3>
-                  <span className="service-price">{service.price}</span>
+                  <h3>{plan.name}</h3>
+                  <span className="plan-price">{plan.price}</span>
                 </header>
-                <p>{service.description}</p>
-                <ul className="service-list">
-                  {service.deliverables.map((item) => (
-                    <li key={item}>{item}</li>
+                <p className="plan-summary">{plan.summary}</p>
+                <ul className="plan-feature-list">
+                  {plan.features.map((feature) => (
+                    <li
+                      key={feature.label}
+                      className={feature.included ? 'plan-feature plan-feature--included' : 'plan-feature plan-feature--excluded'}
+                    >
+                      <FontAwesomeIcon
+                        aria-hidden="true"
+                        icon={feature.included ? faCircleCheck : faCircleXmark}
+                        className="plan-feature-icon"
+                      />
+                      <span>{feature.label}</span>
+                    </li>
                   ))}
                 </ul>
+                <a className="plan-cta" href="#contacto">
+                  {plan.ctaLabel}
+                </a>
               </article>
             ))}
           </div>
@@ -284,6 +365,21 @@ function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="section" id="portafolio">
+          <div className="portfolio-card">
+            <div>
+              <h2 className="section-title">Explora nuestros proyectos digitales</h2>
+              <p className="section-subtitle">
+                Conoce los sitios que hemos lanzado para emprendedores y empresas que confiaron en Code.clic. Cada
+                proyecto se diseña a medida de sus objetivos y métricas clave.
+              </p>
+            </div>
+            <CtaLink variant="primary" to="/proyectos">
+              Ver portafolio completo
+            </CtaLink>
           </div>
         </section>
 
